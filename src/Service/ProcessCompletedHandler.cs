@@ -1,12 +1,12 @@
-﻿using NServiceBus;
+﻿using Contracts;
+using NServiceBus;
 using NServiceBus.Logging;
-using WidgetSaga;
 
 namespace Service
 {
     class ProcessCompletedHandler : IHandleMessages<ProcessComplete>
     {
-        static readonly ILog Logger = LogManager.GetLogger<BuildWidgetSaga>();
+        static readonly ILog Logger = LogManager.GetLogger<ProcessCompletedHandler>();
 
         public void Handle(ProcessComplete message)
         {

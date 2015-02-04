@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace WidgetSaga
+namespace Contracts
 {
     public class ProcessComplete : ICommand
     {

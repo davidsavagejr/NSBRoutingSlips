@@ -22,8 +22,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentAService", "Compon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBService", "ComponentBService\ComponentBService.csproj", "{41C8BAA5-43FD-4F2C-AF87-E426794EB140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetSaga", "WidgetSaga\WidgetSaga.csproj", "{35B3F9B7-68BB-4280-AD50-D621F481D7DA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,10 +52,6 @@ Global
 		{41C8BAA5-43FD-4F2C-AF87-E426794EB140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41C8BAA5-43FD-4F2C-AF87-E426794EB140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41C8BAA5-43FD-4F2C-AF87-E426794EB140}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35B3F9B7-68BB-4280-AD50-D621F481D7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35B3F9B7-68BB-4280-AD50-D621F481D7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35B3F9B7-68BB-4280-AD50-D621F481D7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35B3F9B7-68BB-4280-AD50-D621F481D7DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

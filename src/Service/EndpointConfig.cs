@@ -1,3 +1,5 @@
+using NServiceBus.MessageRouting.RoutingSlips;
+
 namespace Service
 {
     using NServiceBus;
@@ -6,9 +8,10 @@ namespace Service
     {
         public void Customize(BusConfiguration configuration)
         {
-            configuration.UsePersistence<NHibernatePersistence>();
+            configuration.UsePersistence<InMemoryPersistence>();
             configuration.Transactions().DisableDistributedTransactions();
             configuration.Transactions().DoNotWrapHandlersExecutionInATransactionScope();
+            configuration.RoutingSlips();
         }
     }
 }

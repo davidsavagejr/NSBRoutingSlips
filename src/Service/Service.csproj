@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Service</RootNamespace>
     <AssemblyName>Service</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\NSBRoutingDemo\src\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,14 +32,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPoco">
       <HintPath>..\packages\NPoco.2.6.86\lib\net40\NPoco.dll</HintPath>
@@ -49,8 +50,8 @@
     <Reference Include="NServiceBus.Host">
       <HintPath>..\packages\NServiceBus.Host.6.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
     </Reference>
-    <Reference Include="NServiceBus.NHibernate">
-      <HintPath>..\packages\NServiceBus.NHibernate.6.0.1\lib\net45\NServiceBus.NHibernate.dll</HintPath>
+    <Reference Include="NServiceBus.MessageRouting">
+      <HintPath>..\packages\NServiceBus.MessageRouting.1.0.1.0\lib\net451\NServiceBus.MessageRouting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -64,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildWidgetHandler.cs" />
     <Compile Include="EndpointConfig.cs" />
     <Compile Include="ProcessCompletedHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,10 +85,6 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{3979870e-852c-44ed-82bf-bbed2be17776}</Project>
       <Name>Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WidgetSaga\WidgetSaga.csproj">
-      <Project>{35b3f9b7-68bb-4280-ad50-d621f481d7da}</Project>
-      <Name>WidgetSaga</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -39,31 +39,16 @@ namespace WidgetSaga
 
         public void Handle(BuildWidgetCommand message)
         {
-            Data.BatchId = Guid.NewGuid();
-            Data.NeedsComponentB = message.NeedsComponentB;
-            Data.Tracer = message.Tracer;
+            //Data.BatchId = Guid.NewGuid();
+            //Data.NeedsComponentB = message.NeedsComponentB;
+            //Data.Tracer = message.Tracer;
 
-            Bus.Send("ComponentAService", new BuildWidgetSaga_GetComponentA(Data.BatchId));
+            //Bus.Send("ComponentAService", new BuildWidgetSaga_GetComponentA(Data.BatchId));
         }
 
         public void Handle(BuildWidgetSaga_GetComponentA message)
         {
-            using (var db = new Database("connstr"))
-            {
-                db.BeginTransaction();
-                db.Execute("UPDATE TOP(1) Component_A SET batchid = @0 WHERE batchid IS NULL", Data.BatchId);
-                var componentId = db.Single<Component_A>("WHERE batchid = @0", Data.BatchId);
-                Data.ComponentAId = componentId.id;
-                db.CompleteTransaction();
-
-                if (Data.NeedsComponentB)
-                {
-                    Bus.Send("ComponentBService", new BuildWidgetSaga_GetComponentB(Data.BatchId));
-                    return;
-                }
-
-                Bus.Send("WidgetService", new BuildWidgetSaga_CreateWidget(Data.BatchId));
-            }
+            
         }
 
         public void Handle(BuildWidgetSaga_GetComponentB message)
@@ -82,32 +67,7 @@ namespace WidgetSaga
 
         public void Handle(BuildWidgetSaga_CreateWidget message)
         {
-            using (var db = new Database("connstr"))
-            {
-                db.BeginTransaction();
-
-                if (!db.Exists<Widget>(Data.BatchId))
-                {
-                    var widget = new Widget()
-                    {
-                        id = Data.BatchId,
-                        Name = DateTime.Now.Ticks.ToString(),
-                        CreatedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        component_a_id = Data.ComponentAId.HasValue ? Data.ComponentAId.Value : null as Guid?,
-                        component_b_id = Data.ComponentBId.HasValue ? Data.ComponentBId.Value : null as Guid?
-                    };
-
-                    db.Insert(widget);
-                }
-
-                if (Data.Tracer)
-                    Bus.Send("Service", new ProcessComplete());
-
-                MarkAsComplete();
-                db.CompleteTransaction();
-            }
-           
+            
         }
     }
 }

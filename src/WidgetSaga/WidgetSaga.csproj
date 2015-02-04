@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WidgetSaga</RootNamespace>
     <AssemblyName>WidgetSaga</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,10 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildWidgetSaga.cs" />
-    <Compile Include="BuildWidgetSaga_CreateWidget.cs" />
-    <Compile Include="BuildWidgetSaga_GetComponentA.cs" />
-    <Compile Include="BuildWidgetSaga_GetComponentB.cs" />
-    <Compile Include="ProcessComplete.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
