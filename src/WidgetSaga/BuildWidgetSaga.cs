@@ -1,28 +1,25 @@
 ﻿using System;
-using System.Data;
 using Contracts;
 using Models;
 using NPoco;
-using NPoco.FluentMappings;
 using NServiceBus;
-using NServiceBus.Logging;
 using NServiceBus.Saga;
 
-namespace Service
+namespace WidgetSaga
 {
     public class BuildWidgetSagaData : IContainSagaData
     {
-        public Guid Id { get; set; }
-        public string Originator { get; set; }
-        public string OriginalMessageId { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual string Originator { get; set; }
+        public virtual string OriginalMessageId { get; set; }
 
         [Unique]
-        public Guid BatchId { get; set; }
-        
-        public Guid? ComponentAId { get; set; }
-        public Guid? ComponentBId { get; set; }
-        public bool NeedsComponentB { get; set; }
-        public bool Tracer { get; set; }
+        public virtual Guid BatchId { get; set; }
+
+        public virtual Guid? ComponentAId { get; set; }
+        public virtual Guid? ComponentBId { get; set; }
+        public virtual bool NeedsComponentB { get; set; }
+        public virtual bool Tracer { get; set; }
     }
 
     public class BuildWidgetSaga : Saga<BuildWidgetSagaData>,
@@ -31,7 +28,7 @@ namespace Service
         IHandleMessages<BuildWidgetSaga_GetComponentB>,
         IHandleMessages<BuildWidgetSaga_CreateWidget>
     {
-        static readonly ILog Logger = LogManager.GetLogger<BuildWidgetSaga>();
+        
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<BuildWidgetSagaData> mapper)
         {
@@ -46,7 +43,7 @@ namespace Service
             Data.NeedsComponentB = message.NeedsComponentB;
             Data.Tracer = message.Tracer;
 
-            Bus.SendLocal(new BuildWidgetSaga_GetComponentA(Data.BatchId));
+            Bus.Send("ComponentAService", new BuildWidgetSaga_GetComponentA(Data.BatchId));
         }
 
         public void Handle(BuildWidgetSaga_GetComponentA message)
@@ -61,11 +58,11 @@ namespace Service
 
                 if (Data.NeedsComponentB)
                 {
-                    Bus.SendLocal(new BuildWidgetSaga_GetComponentB(Data.BatchId));
+                    Bus.Send("ComponentBService", new BuildWidgetSaga_GetComponentB(Data.BatchId));
                     return;
                 }
 
-                Bus.SendLocal(new BuildWidgetSaga_CreateWidget(Data.BatchId));
+                Bus.Send("WidgetService", new BuildWidgetSaga_CreateWidget(Data.BatchId));
             }
         }
 
@@ -79,7 +76,7 @@ namespace Service
                 Data.ComponentBId = componentId.id;
                 db.CompleteTransaction();
 
-                Bus.SendLocal(new BuildWidgetSaga_CreateWidget(Data.BatchId));
+                Bus.Send("WidgetService", new BuildWidgetSaga_CreateWidget(Data.BatchId));
             }
         }
 
@@ -105,10 +102,7 @@ namespace Service
                 }
 
                 if (Data.Tracer)
-                {
-                    Startup.Timer.Stop();
-                    Logger.InfoFormat("Elapsed seconds: {0}", Startup.Timer.Elapsed.TotalSeconds);
-                }
+                    Bus.Send("Service", new ProcessComplete());
 
                 MarkAsComplete();
                 db.CompleteTransaction();

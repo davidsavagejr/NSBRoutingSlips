@@ -1,7 +1,7 @@
 using System;
 using NServiceBus;
 
-namespace Service
+namespace WidgetSaga
 {
     public class BuildWidgetSaga_GetComponentA : ICommand
     {

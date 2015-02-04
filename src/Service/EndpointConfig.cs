@@ -6,7 +6,7 @@ namespace Service
     {
         public void Customize(BusConfiguration configuration)
         {
-            configuration.UsePersistence<InMemoryPersistence>();
+            configuration.UsePersistence<NHibernatePersistence>();
             configuration.Transactions().DisableDistributedTransactions();
             configuration.Transactions().DoNotWrapHandlersExecutionInATransactionScope();
         }

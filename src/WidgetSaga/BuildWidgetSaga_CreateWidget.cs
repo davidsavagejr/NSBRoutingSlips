@@ -1,13 +1,13 @@
 ﻿using System;
 using NServiceBus;
 
-namespace Service
+namespace WidgetSaga
 {
-    public class BuildWidgetSaga_GetComponentB : ICommand
+    public class BuildWidgetSaga_CreateWidget : ICommand
     {
         public Guid BatchId { get; set; }
 
-        public BuildWidgetSaga_GetComponentB(Guid batchId)
+        public BuildWidgetSaga_CreateWidget(Guid batchId)
         {
             BatchId = batchId;
         }
