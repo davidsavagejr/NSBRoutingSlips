@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="NPoco">
       <HintPath>..\packages\NPoco.2.6.86\lib\net40\NPoco.dll</HintPath>
     </Reference>
@@ -54,7 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildWidgetHandler.cs" />
+    <Compile Include="BuildWidgetSaga.cs" />
+    <Compile Include="BuildWidgetSaga_CreateWidget.cs" />
+    <Compile Include="BuildWidgetSaga_GetComponentA.cs" />
+    <Compile Include="BuildWidgetSaga_GetComponentB.cs" />
     <Compile Include="EndpointConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

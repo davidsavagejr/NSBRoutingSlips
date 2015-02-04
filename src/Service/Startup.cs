@@ -68,9 +68,20 @@ namespace Service
             Timer.Start();
 
             for (var i = 0; i < 10000; i++)
-                Bus.SendLocal(new BuildWidgetCommand(){ NeedsComponentB = DateTime.Now.Ticks % 2 == 0});
+            {
+                Bus.SendLocal(new BuildWidgetCommand()
+                {
+                    BatchId = Guid.NewGuid(),
+                    NeedsComponentB = DateTime.Now.Ticks % 2 == 0
+                });
+            }
 
-            Bus.SendLocal(new BuildWidgetCommand() { Tracer = true });
+            Bus.SendLocal(new BuildWidgetCommand()
+            {
+                BatchId = Guid.NewGuid(),
+                Tracer = true, 
+                NeedsComponentB = true
+            });
         }
 
         public static Stopwatch Timer { get; set; }
