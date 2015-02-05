@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Contracts;
 using Models;
 using NPoco;
@@ -15,7 +16,12 @@ namespace Service
         {
             using (var db = new Database("connstr"))
             {
-                var batchId = Guid.NewGuid();
+                var batchId = message.BatchId;
+
+                db.BeginTransaction();
+
+                if(db.Exists<Widget>(batchId))
+                    return;
 
                 var componentA = GetComponentA(db, batchId);
 
@@ -25,7 +31,7 @@ namespace Service
 
                 var widget = new Widget()
                 {
-                    id = Guid.NewGuid(),
+                    id = batchId,
                     Name = DateTime.Now.Ticks.ToString(),
                     CreatedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
@@ -34,6 +40,7 @@ namespace Service
                 };
 
                 db.Insert(widget);
+                db.CompleteTransaction();
             }
 
             if (!message.Tracer) return;
